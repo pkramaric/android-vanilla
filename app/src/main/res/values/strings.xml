@@ -11,4 +11,7 @@
     <!-- Buttons  -->
     <string name="btnCreate">Create Account</string>
     <string name="btnLogin">Login</string>
+
+    <!-- Errors -->
+    <string name="errorMissingFields">One of your fields is empty. Please make sure you enter all the fields.</string>
 </resources>
