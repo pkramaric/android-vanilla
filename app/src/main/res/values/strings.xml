@@ -17,4 +17,6 @@
 
     <!-- ProgressDialog -->
     <string name="loadingIsConnected">Checking Connection&#8230;</string>
+    <string name="loggingIn">Logging In&#8230;</string>
+    <string name="registeringUser">Registering User&#8230;</string>
 </resources>
