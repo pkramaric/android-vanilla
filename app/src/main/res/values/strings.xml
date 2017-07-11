@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">VanillaApp</string>
     <string name="action_settings">Settings</string>
+
+    <!-- EditText Hints  -->
+    <string name="hintEmail">Email:</string>
+    <string name="hintPassword">Password:</string>
+    <string name="hintFirstName">First Name:</string>
+    <string name="hintLastName">Last Name:</string>
+
+    <!-- Buttons  -->
+    <string name="btnCreate">Create Account</string>
+    <string name="btnLogin">Login</string>
 </resources>
