@@ -14,4 +14,7 @@
 
     <!-- Errors -->
     <string name="errorMissingFields">One of your fields is empty. Please make sure you enter all the fields.</string>
+
+    <!-- ProgressDialog -->
+    <string name="loadingIsConnected">Checking Connection&#8230;</string>
 </resources>

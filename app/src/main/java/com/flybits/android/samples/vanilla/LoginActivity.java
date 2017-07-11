@@ -1,52 +1,87 @@
 package com.flybits.android.samples.vanilla;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
-public class LoginActivity extends AppCompatActivity {
+import com.flybits.android.samples.vanilla.fragments.LoginFragment;
+import com.flybits.commons.library.api.FlybitsManager;
+import com.flybits.commons.library.api.results.callbacks.ConnectionResultCallback;
+import com.flybits.commons.library.exceptions.FlybitsException;
+
+public class LoginActivity extends AppCompatActivity implements LoginFragment.ILoginOptions{
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_splash);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+        progressDialog = new ProgressDialog(this);
+
+        if (findViewById(R.id.fragment_container) != null) {
+
+            if (savedInstanceState != null) {
+                return;
             }
-        });
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+            setProgressBar(getString(R.string.loadingIsConnected), true);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+            FlybitsManager.isConnected(LoginActivity.this, true, new ConnectionResultCallback() {
+                @Override
+                public void onConnected() {
+                    Intent intent   = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    stopProgressBar();
+                    LoginActivity.this.finish();
+                }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+                @Override
+                public void notConnected() {
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, LoginFragment.newInstance()).commit();
+                    stopProgressBar();
+                }
+
+                @Override
+                public void onException(FlybitsException exception) {
+
+                }
+            });
         }
 
-        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onLogin(String email, String password) {
+
+    }
+
+    @Override
+    public void onRegister() {
+
+    }
+
+    private void setProgressBar(String text, boolean isCancelable) {
+        progressDialog.setCancelable(isCancelable);
+        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+            public void onCancel(DialogInterface dialog) {
+
+                if (progressDialog.isShowing())
+                    progressDialog.dismiss();
+            }
+        });
+        progressDialog.show();
+        progressDialog.setMessage(text);
+    }
+
+    private void stopProgressBar() {
+        try {
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
+        } catch (Exception e) {}
     }
 }
