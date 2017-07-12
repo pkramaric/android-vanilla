@@ -2,7 +2,6 @@ package com.flybits.android.samples.vanilla.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,8 +55,6 @@ public class ContentFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (customViewHolder.getItemViewType()) {
             case VIEW_MODULE_TEXT_WITH_IMAGE:
-
-                Log.d("Testing", position + "- " + VIEW_MODULE_TEXT_WITH_IMAGE);
                 try {
                     TextWithImage obj = (TextWithImage) items.get(position).getData(context, TextWithImage.class);
                     ((TextWithImageViewHolder)customViewHolder).txtTitle.setText(obj.txtTitle.getValue());
@@ -68,7 +65,6 @@ public class ContentFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }catch (FlybitsException e){}
                 break;
             case VIEW_MODULE_TEXT:
-                Log.d("Testing", position + "- " + VIEW_MODULE_TEXT);
                 try {
                     TextOnly obj = (TextOnly) items.get(position).getData(context, TextOnly.class);
                     ((TextOnlyViewHolder)customViewHolder).txtTitle.setText(obj.txtTitle.getValue());
@@ -77,7 +73,6 @@ public class ContentFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }catch (FlybitsException e){}
                  break;
             case VIEW_MODULE_IMAGE:
-                Log.d("Testing", position + "- " + VIEW_MODULE_IMAGE);
                 try {
                     ImageOnly obj = (ImageOnly) items.get(position).getData(context, ImageOnly.class);
                     if (obj.img != null) {
@@ -94,16 +89,12 @@ public class ContentFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (items.get(position).getTemplateId()){
             case Constants.TEMPLATE_ID_TEXT_AND_IMG:
-                Log.d("Testing", position + " - " + Constants.TEMPLATE_ID_TEXT_AND_IMG);
                 return VIEW_MODULE_TEXT_WITH_IMAGE;
             case Constants.TEMPLATE_ID_TEXT_ONLY:
-                Log.d("Testing", position + " - " + Constants.TEMPLATE_ID_TEXT_ONLY);
                 return VIEW_MODULE_TEXT;
             case Constants.TEMPLATE_ID_IMAGE_ONLY:
-                Log.d("Testing", position + " - " + Constants.TEMPLATE_ID_IMAGE_ONLY);
                 return VIEW_MODULE_IMAGE;
             default:
-                Log.e("Testing", "ERROR");
                 return VIEW_MODULE_TEXT;
         }
     }

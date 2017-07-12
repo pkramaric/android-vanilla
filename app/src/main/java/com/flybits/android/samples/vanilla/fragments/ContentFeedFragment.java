@@ -3,6 +3,7 @@ package com.flybits.android.samples.vanilla.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ public class ContentFeedFragment extends Fragment {
     private ContentFeedAdapter adapter;
     private ContentResult result;
     private IProgressDialog callbackProgress;
+    private SwipeRefreshLayout swipeContainer;
 
     public static ContentFeedFragment newInstance(){
 
@@ -39,7 +41,9 @@ public class ContentFeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view   = inflater.inflate(R.layout.fragment_feed, container, false);
+
         RecyclerView  rcView    = (RecyclerView) view.findViewById(R.id.list_feed);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
 
         // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -50,13 +54,29 @@ public class ContentFeedFragment extends Fragment {
         adapter = new ContentFeedAdapter(getContext(), listOfContent);
         rcView.setAdapter(adapter);
 
+        callbackProgress.onStartProgress(getString(R.string.loadingContent), true);
         displayContent();
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                displayContent();
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         return view;
     }
 
     public void displayContent() {
 
-        callbackProgress.onStartProgress(getString(R.string.loadingContent), true);
         ContentParameters params = new ContentParameters.Builder()
                 .addPaging(999, 0)
                 .build();
@@ -65,20 +85,27 @@ public class ContentFeedFragment extends Fragment {
             @Override
             public void onSuccess(ArrayList<Content> items) {
                 if (isAdded()){
+                    listOfContent.clear();
                     listOfContent.addAll(items);
                     adapter.notifyDataSetChanged();
                     callbackProgress.onStopProgress();
+                    swipeContainer.setRefreshing(false);
+
                 }
             }
 
             @Override
             public void onException(FlybitsException exception) {
-
+                if (isAdded()){
+                    swipeContainer.setRefreshing(false);
+                }
             }
 
             @Override
             public void onLoadedAllItems() {
-
+                if (isAdded()){
+                    swipeContainer.setRefreshing(false);
+                }
             }
         });
     }
