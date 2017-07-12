@@ -7,10 +7,17 @@
     android:orientation="horizontal"
     android:padding="5dp">
 
-    <ImageView
-        android:id="@+id/imgPic"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:src="@mipmap/flybits"/>
-
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="4dp">
+        <ImageView
+            android:id="@+id/imgPic"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@mipmap/flybits"/>
+    </android.support.v7.widget.CardView>
 </LinearLayout>
