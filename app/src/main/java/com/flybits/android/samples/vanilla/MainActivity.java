@@ -1,5 +1,7 @@
 package com.flybits.android.samples.vanilla;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -9,13 +11,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.flybits.android.samples.vanilla.fragments.ContentFeedFragment;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        progressDialog  = new ProgressDialog(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
@@ -28,10 +35,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setProgressBar(getString(R.string.loadingContent), true);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ContentFeedFragment.newInstance()).commit();
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         return false;
+    }
+
+    private void setProgressBar(String text, boolean isCancelable) {
+        progressDialog.setCancelable(isCancelable);
+        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+            public void onCancel(DialogInterface dialog) {
+
+                if (progressDialog.isShowing())
+                    progressDialog.dismiss();
+            }
+        });
+        progressDialog.show();
+        progressDialog.setMessage(text);
+    }
+
+    private void stopProgressBar() {
+        try {
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
+        } catch (Exception e) {}
     }
 }
