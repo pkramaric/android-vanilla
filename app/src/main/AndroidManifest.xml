@@ -21,6 +21,15 @@
 
         <activity android:name=".MainActivity"/>
 
+        <service
+            android:name="com.flybits.android.push.services.FlybitsPushService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+            <meta-data
+                android:name="com.flybits.push.notification.icon" android:resource="@drawable/ic_launcher_w"/>
+        </service>
+
         <meta-data
             android:name="com.flybits.projectID"
             android:value="@string/flybitsProjectID" />

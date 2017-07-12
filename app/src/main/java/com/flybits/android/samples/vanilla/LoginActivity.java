@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.flybits.android.kernel.KernelScope;
+import com.flybits.android.push.PushScope;
 import com.flybits.android.samples.vanilla.fragments.CreateAccountFragment;
 import com.flybits.android.samples.vanilla.fragments.LoginFragment;
 import com.flybits.commons.library.api.FlybitsManager;
@@ -110,6 +111,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
     private void connectToFlybits(FlybitsIDP idp) {
         FlybitsManager manager  = new FlybitsManager.Builder(LoginActivity.this)
                 .addScope(KernelScope.SCOPE)
+                .addScope(new PushScope(LoginActivity.this))
                 .setAccount(idp)
                 .setDebug()
                 .build();
