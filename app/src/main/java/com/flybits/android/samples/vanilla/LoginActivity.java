@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.flybits.android.samples.vanilla.fragments.CreateAccountFragment;
 import com.flybits.android.samples.vanilla.fragments.LoginFragment;
@@ -16,12 +18,16 @@ import com.flybits.commons.library.exceptions.FlybitsException;
 public class LoginActivity extends AppCompatActivity implements LoginFragment.ILoginOptions, CreateAccountFragment.ICreateAccount{
 
     private ProgressDialog progressDialog;
+    private RelativeLayout layoutSplash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        FlybitsManager.setDebug();
+
+        layoutSplash    = (RelativeLayout) findViewById(R.id.layoutSplash);
         progressDialog = new ProgressDialog(this);
 
         if (findViewById(R.id.fragment_container) != null) {
@@ -51,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
 
     @Override
     public void onRegister() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, CreateAccountFragment.newInstance()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, CreateAccountFragment.newInstance()).addToBackStack("Login").commit();
     }
 
     private void setProgressBar(String text, boolean isCancelable) {
@@ -88,11 +94,12 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
         public void notConnected() {
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, LoginFragment.newInstance()).commit();
             stopProgressBar();
+            layoutSplash.setVisibility(View.GONE);
         }
 
         @Override
         public void onException(FlybitsException exception) {
-
+            layoutSplash.setVisibility(View.GONE);
         }
     };
 
