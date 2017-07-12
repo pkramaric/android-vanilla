@@ -5,12 +5,12 @@ import android.os.Parcelable;
 
 public class ImageOnly implements Parcelable{
 
-    public String url;
+    public String img;
 
     public ImageOnly() {}
 
     public ImageOnly(Parcel in){
-        url       = in.readString();
+        img       = in.readString();
     }
 
     @Override
@@ -20,7 +20,7 @@ public class ImageOnly implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(url);
+        dest.writeString(img);
     }
 
     public static final Creator CREATOR = new Creator() {

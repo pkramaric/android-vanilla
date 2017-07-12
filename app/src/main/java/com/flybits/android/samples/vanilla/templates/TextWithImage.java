@@ -7,14 +7,14 @@ public class TextWithImage implements Parcelable{
 
     public String title;
     public String description;
-    public String url;
+    public String img;
 
     public TextWithImage() {}
 
     public TextWithImage(Parcel in){
         title       = in.readString();
         description = in.readString();
-        url         = in.readString();
+        img         = in.readString();
     }
 
     @Override
@@ -26,7 +26,7 @@ public class TextWithImage implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
         dest.writeString(description);
-        dest.writeString(url);
+        dest.writeString(img);
     }
 
     public static final Creator CREATOR = new Creator() {

@@ -60,8 +60,8 @@ public class ContentFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     TextWithImage obj = (TextWithImage) items.get(position).getData(context, TextWithImage.class);
                     ((TextWithImageViewHolder)customViewHolder).txtTitle.setText(obj.title);
                     ((TextWithImageViewHolder)customViewHolder).txtDescription.setText(obj.description);
-                    if (obj.url != null) {
-                        Picasso.with(context).load(obj.url).into(((TextWithImageViewHolder) customViewHolder).img);
+                    if (obj.img != null) {
+                        Picasso.with(context).load(obj.img).into(((TextWithImageViewHolder) customViewHolder).img);
                     }
                 }catch (FlybitsException e){}
                 break;
@@ -76,8 +76,8 @@ public class ContentFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             case VIEW_MODULE_IMAGE:
                 try {
                     ImageOnly obj = (ImageOnly) items.get(position).getData(context, ImageOnly.class);
-                    if (obj.url != null) {
-                        Picasso.with(context).load(obj.url).into(((ImageOnlyViewHolder) customViewHolder).img);
+                    if (obj.img != null) {
+                        Picasso.with(context).load(obj.img).into(((ImageOnlyViewHolder) customViewHolder).img);
                     }
 
                 }catch (FlybitsException e){}
