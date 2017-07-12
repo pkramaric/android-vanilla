@@ -6,4 +6,10 @@
             android:icon="@mipmap/ic_launcher"
             android:title="Home" />
     </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Logout" />
+    </group>
 </menu>
