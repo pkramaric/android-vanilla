@@ -3,18 +3,20 @@ package com.flybits.android.samples.vanilla.templates;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.flybits.android.kernel.models.LocalizedValue;
+
 public class TextWithImage implements Parcelable{
 
-    public String title;
-    public String description;
+    public LocalizedValue txtTitle;
+    public LocalizedValue txtDescription;
     public String img;
 
     public TextWithImage() {}
 
     public TextWithImage(Parcel in){
-        title       = in.readString();
-        description = in.readString();
-        img         = in.readString();
+        txtTitle        = in.readParcelable(LocalizedValue.class.getClassLoader());
+        txtDescription  = in.readParcelable(LocalizedValue.class.getClassLoader());
+        img             = in.readString();
     }
 
     @Override
@@ -24,8 +26,8 @@ public class TextWithImage implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
-        dest.writeString(description);
+        dest.writeParcelable(txtTitle, flags);
+        dest.writeParcelable(txtDescription, flags);
         dest.writeString(img);
     }
 
