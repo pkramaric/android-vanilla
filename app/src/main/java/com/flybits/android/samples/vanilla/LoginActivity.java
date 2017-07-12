@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.flybits.android.kernel.KernelScope;
 import com.flybits.android.samples.vanilla.fragments.CreateAccountFragment;
 import com.flybits.android.samples.vanilla.fragments.LoginFragment;
 import com.flybits.commons.library.api.FlybitsManager;
@@ -51,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
     @Override
     public void onCreate(String firstName, String lastName, String email, String password) {
         setProgressBar(getString(R.string.registeringUser), true);
-        FlybitsIDP  idp = new FlybitsIDP(firstName, lastName, email, password);
+        FlybitsIDP  idp = new FlybitsIDP(email, password, firstName, lastName);
         connectToFlybits(idp);
     }
 
@@ -100,12 +102,16 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
         @Override
         public void onException(FlybitsException exception) {
             layoutSplash.setVisibility(View.GONE);
+            stopProgressBar();
+            Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
         }
     };
 
     private void connectToFlybits(FlybitsIDP idp) {
         FlybitsManager manager  = new FlybitsManager.Builder(LoginActivity.this)
+                .addScope(KernelScope.SCOPE)
                 .setAccount(idp)
+                .setDebug()
                 .build();
         manager.connect(connectionCallback);
     }
