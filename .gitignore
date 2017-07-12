@@ -93,3 +93,4 @@ jniLibs
 reports
 
 app/src/main/res/values/flybits.xml
+app/google-services.json
