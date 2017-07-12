@@ -6,7 +6,23 @@
             android:icon="@mipmap/ic_launcher"
             android:title="Home" />
     </group>
-    <group android:checkableBehavior="single">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_send_context_student"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Send 'Student'" />
+        <item
+            android:id="@+id/nav_send_context_highnet"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Send 'High-Net'" />
+        <item
+            android:id="@+id/nav_send_context_pensioner"
+            android:icon="@mipmap/ic_launcher"
+            android:title="Send 'Pensioner'" />
+    </group>
+    <group
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_logout"
             android:icon="@mipmap/ic_launcher"

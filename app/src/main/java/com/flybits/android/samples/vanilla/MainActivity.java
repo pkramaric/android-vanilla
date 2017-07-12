@@ -14,18 +14,27 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flybits.android.kernel.KernelScope;
 import com.flybits.android.push.PushScope;
+import com.flybits.android.samples.vanilla.context.BankingData;
 import com.flybits.android.samples.vanilla.fragments.ContentFeedFragment;
 import com.flybits.android.samples.vanilla.interfaces.IProgressDialog;
 import com.flybits.commons.library.api.FlybitsManager;
 import com.flybits.commons.library.api.results.callbacks.BasicResultCallback;
+import com.flybits.commons.library.caching.FlybitsUIObjectObserver;
+import com.flybits.commons.library.caching.FlybitsUserObserver;
 import com.flybits.commons.library.exceptions.FlybitsException;
+import com.flybits.commons.library.models.User;
+import com.flybits.context.ContextManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IProgressDialog{
 
+    private  TextView headerName;
+    private  TextView headerEmail;
     private ProgressDialog progressDialog;
 
     @Override
@@ -35,8 +44,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         progressDialog  = new ProgressDialog(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+        headerName = (TextView) header.findViewById(R.id.txtName);
+        headerEmail = (TextView) header.findViewById(R.id.txtEmail);
+
         toolbar.setTitle(getString(R.string.app_name));
         setSupportActionBar(toolbar);
+
+        FlybitsManager.getUser(MainActivity.this);
+        FlybitsUserObserver.observe(MainActivity.this).add(new FlybitsUIObjectObserver.DataChanged<User>() {
+            @Override
+            public void onUpdate(User data) {
+                headerName.setText(data.getFirstName() + " " + data.getLastName());
+                headerEmail.setText(data.getEmail());
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -44,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ContentFeedFragment.newInstance()).commit();
@@ -65,6 +88,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_logout:
                 setProgressBar(getString(R.string.loggingOut), false);
                 logout();
+                break;
+            case R.id.nav_send_context_highnet:
+                BankingData data    = new BankingData();
+                data.creditcard     = "visa";
+                data.balance        = 1000;
+                data.segmentation   = "highnet";
+                ContextManager.updateContext(MainActivity.this, data, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onException(FlybitsException exception) {
+
+                    }
+                });
+                break;
+            case R.id.nav_send_context_pensioner:
+                BankingData data2    = new BankingData();
+                data2.creditcard     = "visa";
+                data2.balance        = 1000;
+                data2.segmentation   = "pensioner";
+                ContextManager.updateContext(MainActivity.this, data2, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onException(FlybitsException exception) {
+
+                    }
+                });
+
+                break;
+            case R.id.nav_send_context_student:
+                BankingData data3    = new BankingData();
+                data3.creditcard     = "visa";
+                data3.balance        = 1000;
+                data3.segmentation   = "student";
+                ContextManager.updateContext(MainActivity.this, data3, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onException(FlybitsException exception) {
+
+                    }
+                });
                 break;
             default:
                 fragmentClass = ContentFeedFragment.class;

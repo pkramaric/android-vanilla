@@ -17,6 +17,9 @@ import com.flybits.commons.library.api.FlybitsManager;
 import com.flybits.commons.library.api.idps.FlybitsIDP;
 import com.flybits.commons.library.api.results.callbacks.ConnectionResultCallback;
 import com.flybits.commons.library.exceptions.FlybitsException;
+import com.flybits.context.ContextScope;
+
+import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity implements LoginFragment.ILoginOptions, CreateAccountFragment.ICreateAccount{
 
@@ -112,6 +115,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
         FlybitsManager manager  = new FlybitsManager.Builder(LoginActivity.this)
                 .addScope(KernelScope.SCOPE)
                 .addScope(new PushScope(LoginActivity.this))
+                .addScope(new ContextScope(LoginActivity.this, 1, TimeUnit.MINUTES))
                 .setAccount(idp)
                 .setDebug()
                 .build();
