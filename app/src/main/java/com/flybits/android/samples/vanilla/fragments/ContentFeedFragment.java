@@ -50,7 +50,7 @@ public class ContentFeedFragment extends Fragment {
         adapter = new ContentFeedAdapter(getContext(), listOfContent);
         rcView.setAdapter(adapter);
 
-       // displayContent();
+        displayContent();
         return view;
     }
 
