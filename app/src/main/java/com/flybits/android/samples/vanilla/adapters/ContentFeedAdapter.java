@@ -84,11 +84,11 @@ public class ContentFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemViewType(int position) {
 
         switch (items.get(position).getTemplateId()){
-            case "ctx.sdk.activity":
+            case "B7F47E8B-AC1D-4E9C-92C3-CF77D71E0183":
                 return VIEW_MODULE_TEXT_WITH_IMAGE;
-            case "ctx.sdk.battery":
+            case "14A1899F-E190-47BD-A32F-8D96684245C9":
                 return VIEW_MODULE_TEXT;
-            case "ctx.sdk.carrier":
+            case "C044C930-74FE-4FEF-A58C-9E340B56F1FE":
                 return VIEW_MODULE_IMAGE;
             default:
                 return VIEW_MODULE_TEXT;
