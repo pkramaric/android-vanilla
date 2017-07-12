@@ -10,6 +10,11 @@ import android.widget.TextView;
 
 import com.flybits.android.kernel.models.Content;
 import com.flybits.android.samples.vanilla.R;
+import com.flybits.android.samples.vanilla.templates.ImageOnly;
+import com.flybits.android.samples.vanilla.templates.TextOnly;
+import com.flybits.android.samples.vanilla.templates.TextWithImage;
+import com.flybits.commons.library.exceptions.FlybitsException;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,10 +54,28 @@ public class ContentFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (customViewHolder.getItemViewType()) {
             case VIEW_MODULE_TEXT_WITH_IMAGE:
+
+                try {
+                    TextWithImage obj = (TextWithImage) items.get(position).getData(context, TextWithImage.class);
+                    ((TextWithImageViewHolder)customViewHolder).txtTitle.setText(obj.title);
+                    ((TextWithImageViewHolder)customViewHolder).txtDescription.setText(obj.description);
+                    Picasso.with(context).load(obj.url).into(((TextWithImageViewHolder)customViewHolder).img);
+                }catch (FlybitsException e){}
                 break;
             case VIEW_MODULE_TEXT:
+                try {
+                    TextOnly obj = (TextOnly) items.get(position).getData(context, TextOnly.class);
+                    ((TextOnlyViewHolder)customViewHolder).txtTitle.setText(obj.title);
+                    ((TextOnlyViewHolder)customViewHolder).txtDescription.setText(obj.description);
+
+                }catch (FlybitsException e){}
                  break;
             case VIEW_MODULE_IMAGE:
+                try {
+                    ImageOnly obj = (ImageOnly) items.get(position).getData(context, ImageOnly.class);
+                    Picasso.with(context).load(obj.url).into(((TextWithImageViewHolder)customViewHolder).img);
+
+                }catch (FlybitsException e){}
                break;
         }
     }

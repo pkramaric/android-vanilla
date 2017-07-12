@@ -9,8 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.flybits.android.kernel.models.Content;
+import com.flybits.android.kernel.models.results.ContentResult;
+import com.flybits.android.kernel.utilities.ContentParameters;
 import com.flybits.android.samples.vanilla.R;
 import com.flybits.android.samples.vanilla.adapters.ContentFeedAdapter;
+import com.flybits.commons.library.api.results.callbacks.PagedResultCallback;
+import com.flybits.commons.library.exceptions.FlybitsException;
 
 import java.util.ArrayList;
 
@@ -18,6 +22,7 @@ public class ContentFeedFragment extends Fragment {
 
     private ArrayList<Content> listOfContent;
     private ContentFeedAdapter adapter;
+    private ContentResult result;
 
     public static ContentFeedFragment newInstance(){
 
@@ -42,8 +47,34 @@ public class ContentFeedFragment extends Fragment {
         adapter = new ContentFeedAdapter(getContext(), listOfContent);
         rcView.setAdapter(adapter);
 
-        getContent();
+        displayContent();
         return view;
     }
 
+    public void displayContent() {
+
+        ContentParameters params = new ContentParameters.Builder()
+                .addPaging(999, 0)
+                .build();
+
+        result = Content.get(getContext(), params, new PagedResultCallback<Content>() {
+            @Override
+            public void onSuccess(ArrayList<Content> items) {
+                if (isAdded()){
+                    listOfContent.addAll(items);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onException(FlybitsException exception) {
+
+            }
+
+            @Override
+            public void onLoadedAllItems() {
+
+            }
+        });
+    }
 }
