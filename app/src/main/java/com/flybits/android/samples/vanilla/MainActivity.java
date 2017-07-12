@@ -12,8 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.flybits.android.samples.vanilla.fragments.ContentFeedFragment;
+import com.flybits.android.samples.vanilla.interfaces.IProgressDialog;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IProgressDialog{
 
     private ProgressDialog progressDialog;
 
@@ -36,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        setProgressBar(getString(R.string.loadingContent), true);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ContentFeedFragment.newInstance()).commit();
     }
 
@@ -64,5 +64,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
         } catch (Exception e) {}
+    }
+
+    @Override
+    public void onStartProgress(String text, boolean isCancelable) {
+        setProgressBar(text, isCancelable);
+    }
+
+    @Override
+    public void onStopProgress() {
+        stopProgressBar();
     }
 }

@@ -1,5 +1,6 @@
 package com.flybits.android.samples.vanilla.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import com.flybits.android.kernel.models.results.ContentResult;
 import com.flybits.android.kernel.utilities.ContentParameters;
 import com.flybits.android.samples.vanilla.R;
 import com.flybits.android.samples.vanilla.adapters.ContentFeedAdapter;
+import com.flybits.android.samples.vanilla.interfaces.IProgressDialog;
 import com.flybits.commons.library.api.results.callbacks.PagedResultCallback;
 import com.flybits.commons.library.exceptions.FlybitsException;
 
@@ -23,6 +25,7 @@ public class ContentFeedFragment extends Fragment {
     private ArrayList<Content> listOfContent;
     private ContentFeedAdapter adapter;
     private ContentResult result;
+    private IProgressDialog callbackProgress;
 
     public static ContentFeedFragment newInstance(){
 
@@ -53,6 +56,7 @@ public class ContentFeedFragment extends Fragment {
 
     public void displayContent() {
 
+        callbackProgress.onStartProgress(getString(R.string.loadingContent), true);
         ContentParameters params = new ContentParameters.Builder()
                 .addPaging(999, 0)
                 .build();
@@ -63,6 +67,7 @@ public class ContentFeedFragment extends Fragment {
                 if (isAdded()){
                     listOfContent.addAll(items);
                     adapter.notifyDataSetChanged();
+                    callbackProgress.onStopProgress();
                 }
             }
 
@@ -76,5 +81,18 @@ public class ContentFeedFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        callbackProgress = (IProgressDialog) context;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        callbackProgress.onStopProgress();
     }
 }
