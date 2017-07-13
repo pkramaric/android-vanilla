@@ -15,7 +15,7 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url  "http://dl.bintray.com/flybits-inc/android" }
+        maven { url  "http://dl.bintray.com/flybits-inc/v3" }
         maven { url 'https://maven.google.com' }
         jcenter()
     }
