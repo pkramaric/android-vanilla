@@ -33,8 +33,8 @@ import com.flybits.context.ContextManager;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, IProgressDialog{
 
-    private  TextView headerName;
-    private  TextView headerEmail;
+    private TextView headerName;
+    private TextView headerEmail;
     private ProgressDialog progressDialog;
 
     @Override
@@ -91,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_send_context_highnet:
                 BankingData data    = new BankingData();
-                data.creditcard     = "visa";
-                data.balance        = 1000;
                 data.segmentation   = "highnet";
                 ContextManager.updateContext(MainActivity.this, data, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
                     @Override
@@ -108,8 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_send_context_pensioner:
                 BankingData data2    = new BankingData();
-                data2.creditcard     = "visa";
-                data2.balance        = 1000;
                 data2.segmentation   = "pensioner";
                 ContextManager.updateContext(MainActivity.this, data2, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
                     @Override
@@ -126,10 +122,72 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_send_context_student:
                 BankingData data3    = new BankingData();
-                data3.creditcard     = "visa";
-                data3.balance        = 1000;
                 data3.segmentation   = "student";
                 ContextManager.updateContext(MainActivity.this, data3, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onException(FlybitsException exception) {
+
+                    }
+                });
+                break;
+
+            case R.id.nav_send_context_balance1:
+                BankingData data4    = new BankingData();
+                data4.balance   = 1000;
+                ContextManager.updateContext(MainActivity.this, data4, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onException(FlybitsException exception) {
+
+                    }
+                });
+                break;
+
+            case R.id.nav_send_context_balance2:
+                BankingData data5    = new BankingData();
+                data5.balance   = 10000;
+                ContextManager.updateContext(MainActivity.this, data5, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onException(FlybitsException exception) {
+
+                    }
+                });
+                break;
+
+            case R.id.nav_send_context_credit1:
+                BankingData data6   = new BankingData();
+                data6.creditcard    = "visa";
+                ContextManager.updateContext(MainActivity.this, data6, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onException(FlybitsException exception) {
+
+                    }
+                });
+                break;
+
+            case R.id.nav_send_context_credit2:
+                BankingData data7   = new BankingData();
+                data7.creditcard    = "mastercard";
+                ContextManager.updateContext(MainActivity.this, data7, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
                     @Override
                     public void onSuccess() {
 

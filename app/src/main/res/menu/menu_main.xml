@@ -1,31 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
             android:icon="@mipmap/ic_launcher"
             android:title="Home" />
-    </group>
-    <group
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_send_context_student"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Send 'Student'" />
-        <item
-            android:id="@+id/nav_send_context_highnet"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Send 'High-Net'" />
-        <item
-            android:id="@+id/nav_send_context_pensioner"
-            android:icon="@mipmap/ic_launcher"
-            android:title="Send 'Pensioner'" />
-    </group>
-    <group
-        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_logout"
             android:icon="@mipmap/ic_launcher"
             android:title="Logout" />
     </group>
+
+    <item android:title="Context Segmentation Updates">
+        <menu>
+            <item
+                android:id="@+id/nav_send_context_student"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Send 'Student'" />
+            <item
+                android:id="@+id/nav_send_context_highnet"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Send 'High-Net'" />
+            <item
+                android:id="@+id/nav_send_context_pensioner"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Send 'Pensioner'" />
+        </menu>
+    </item>
+
+    <item android:title="Context Balance Updates">
+        <menu>
+            <item
+                android:id="@+id/nav_send_context_balance1"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Send balance: 1000" />
+            <item
+                android:id="@+id/nav_send_context_balance2"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Send balance: 10000" />
+        </menu>
+    </item>
+
+    <item android:title="Context Credit Card Updates">
+        <menu>
+            <item
+                android:id="@+id/nav_send_context_credit1"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Send Credit Card: Visa" />
+            <item
+                android:id="@+id/nav_send_context_credit2"
+                android:icon="@mipmap/ic_launcher"
+                android:title="Send Credit Card: Mastercard" />
+        </menu>
+    </item>
 </menu>

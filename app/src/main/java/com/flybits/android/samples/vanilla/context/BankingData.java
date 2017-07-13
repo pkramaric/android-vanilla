@@ -10,9 +10,9 @@ import org.json.JSONObject;
 
 public class BankingData extends ContextData implements Parcelable {
 
-    public long balance;
-    public String segmentation;
-    public String creditcard;
+    public long accountBalance = -1;
+    public String segmentation = "";
+    public String creditCard = "";
 
     //MUST HAVE AN EMPTY CONSTRUCTOR
     public BankingData(){}
@@ -20,9 +20,9 @@ public class BankingData extends ContextData implements Parcelable {
 
     //MUST HAVE AN EMPTY CONSTRUCTOR
     public BankingData(Parcel in){
-        balance         = in.readLong();
+        accountBalance         = in.readLong();
         segmentation    = in.readString();
-        creditcard      = in.readString();
+        creditCard      = in.readString();
     }
 
     @Override
@@ -32,10 +32,10 @@ public class BankingData extends ContextData implements Parcelable {
 
         BankingData that = (BankingData) o;
 
-        if (balance != that.balance) return false;
+        if (accountBalance != that.accountBalance) return false;
         if (segmentation != null ? !segmentation.equals(that.segmentation) : that.segmentation != null)
             return false;
-        return creditcard != null ? creditcard.equals(that.creditcard) : that.creditcard == null;
+        return creditCard != null ? creditCard.equals(that.creditCard) : that.creditCard == null;
 
     }
 
@@ -43,9 +43,14 @@ public class BankingData extends ContextData implements Parcelable {
     public void fromJson(String json) {
         try {
             JSONObject jsonObj  = new JSONObject(json);
-            balance             = jsonObj.getLong("balance");
-            segmentation        = jsonObj.getString("segmentation");
-            creditcard          = jsonObj.getString("creditcard");
+            if (accountBalance > 0)
+                accountBalance             = jsonObj.getLong("accountBalance");
+
+            if (segmentation.length() > 0)
+                segmentation        = jsonObj.getString("segmentation");
+
+            if (creditCard.length() > 0)
+                creditCard          = jsonObj.getString("creditCard");
         }catch (JSONException exception){}
     }
 
@@ -53,9 +58,14 @@ public class BankingData extends ContextData implements Parcelable {
     public String toJson() {
         JSONObject object=new JSONObject();
         try {
-            object.put("balance", balance);
-            object.put("segmentation", segmentation);
-            object.put("creditcard", creditcard);
+            if (accountBalance > 0)
+                object.put("accountBalance", accountBalance);
+
+            if (segmentation.length() > 0)
+                object.put("segmentation", segmentation);
+
+            if (creditCard.length() > 0)
+                object.put("creditCard", creditCard);
         }catch (JSONException exception){}
         return object.toString();
     }
@@ -67,9 +77,9 @@ public class BankingData extends ContextData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(balance);
+        dest.writeLong(accountBalance);
         dest.writeString(segmentation);
-        dest.writeString(creditcard);
+        dest.writeString(creditCard);
     }
 
     @Override
