@@ -10,13 +10,16 @@
     <string name="hintPassword">Password:</string>
     <string name="hintFirstName">First Name:</string>
     <string name="hintLastName">Last Name:</string>
+    <string name="hintContextValue">Enter Your Context Value:</string>
 
     <!-- Buttons  -->
     <string name="btnCreate">Create Account</string>
     <string name="btnLogin">Login</string>
+    <string name="btnSubmit">Submit</string>
 
     <!-- Errors -->
     <string name="errorMissingFields">One of your fields is empty. Please make sure you enter all the fields.</string>
+    <string name="successSent">Thank you your data has been sent.</string>
 
     <!-- ProgressDialog -->
     <string name="loadingIsConnected">Checking Connection&#8230;</string>

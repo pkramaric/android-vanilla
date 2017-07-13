@@ -22,6 +22,7 @@ import com.flybits.android.kernel.KernelScope;
 import com.flybits.android.push.PushScope;
 import com.flybits.android.samples.vanilla.context.BankingData;
 import com.flybits.android.samples.vanilla.fragments.ContentFeedFragment;
+import com.flybits.android.samples.vanilla.fragments.CustomContextDialog;
 import com.flybits.android.samples.vanilla.interfaces.IProgressDialog;
 import com.flybits.commons.library.api.FlybitsManager;
 import com.flybits.commons.library.api.results.callbacks.BasicResultCallback;
@@ -128,6 +129,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 BankingData data7   = new BankingData();
                 data7.creditCard    = "mastercard";
                 ContextManager.updateContextNow(MainActivity.this, data7, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
+                break;
+            case R.id.nav_custom_context:
+                FragmentManager fm = getSupportFragmentManager();
+                CustomContextDialog dialogFragment = new CustomContextDialog ();
+                dialogFragment.show(fm, "Custom Context Dialog");
                 break;
             default:
                 fragmentClass = ContentFeedFragment.class;
