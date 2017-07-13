@@ -97,112 +97,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_send_context_highnet:
                 BankingData data    = new BankingData();
                 data.segmentation   = "highnet";
-                ContextManager.updateContext(MainActivity.this, data, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onException(FlybitsException exception) {
-
-                    }
-                });
+                ContextManager.updateContextNow(MainActivity.this, data, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
                 break;
             case R.id.nav_send_context_pensioner:
                 BankingData data2    = new BankingData();
                 data2.segmentation   = "pensioner";
-                ContextManager.updateContext(MainActivity.this, data2, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onException(FlybitsException exception) {
-
-                    }
-                });
-
+                ContextManager.updateContextNow(MainActivity.this, data2, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
                 break;
             case R.id.nav_send_context_student:
                 BankingData data3    = new BankingData();
                 data3.segmentation   = "student";
-                ContextManager.updateContext(MainActivity.this, data3, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onException(FlybitsException exception) {
-
-                    }
-                });
+                ContextManager.updateContextNow(MainActivity.this, data3, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
                 break;
-
             case R.id.nav_send_context_balance1:
                 BankingData data4    = new BankingData();
                 data4.accountBalance = 1000;
-                ContextManager.updateContext(MainActivity.this, data4, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onException(FlybitsException exception) {
-
-                    }
-                });
+                ContextManager.updateContextNow(MainActivity.this, data4, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
                 break;
-
             case R.id.nav_send_context_balance2:
                 BankingData data5    = new BankingData();
                 data5.accountBalance   = 10000;
-                ContextManager.updateContext(MainActivity.this, data5, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onException(FlybitsException exception) {
-
-                    }
-                });
+                ContextManager.updateContextNow(MainActivity.this, data5, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
                 break;
-
             case R.id.nav_send_context_credit1:
                 BankingData data6   = new BankingData();
                 data6.creditCard    = "visa";
-                ContextManager.updateContext(MainActivity.this, data6, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onException(FlybitsException exception) {
-
-                    }
-                });
+                ContextManager.updateContextNow(MainActivity.this, data6, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
                 break;
-
             case R.id.nav_send_context_credit2:
                 BankingData data7   = new BankingData();
                 data7.creditCard    = "mastercard";
-                ContextManager.updateContext(MainActivity.this, data7, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
-                    @Override
-                    public void onSuccess() {
-
-                    }
-
-                    @Override
-                    public void onException(FlybitsException exception) {
-
-                    }
-                });
+                ContextManager.updateContextNow(MainActivity.this, data7, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
                 break;
             default:
                 fragmentClass = ContentFeedFragment.class;
