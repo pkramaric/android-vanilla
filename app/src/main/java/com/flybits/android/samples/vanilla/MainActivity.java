@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_send_context_balance1:
                 BankingData data4    = new BankingData();
-                data4.balance   = 1000;
+                data4.accountBalance = 1000;
                 ContextManager.updateContext(MainActivity.this, data4, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
                     @Override
                     public void onSuccess() {
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_send_context_balance2:
                 BankingData data5    = new BankingData();
-                data5.balance   = 10000;
+                data5.accountBalance   = 10000;
                 ContextManager.updateContext(MainActivity.this, data5, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
                     @Override
                     public void onSuccess() {
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_send_context_credit1:
                 BankingData data6   = new BankingData();
-                data6.creditcard    = "visa";
+                data6.creditCard    = "visa";
                 ContextManager.updateContext(MainActivity.this, data6, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
                     @Override
                     public void onSuccess() {
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.nav_send_context_credit2:
                 BankingData data7   = new BankingData();
-                data7.creditcard    = "mastercard";
+                data7.creditCard    = "mastercard";
                 ContextManager.updateContext(MainActivity.this, data7, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, new BasicResultCallback() {
                     @Override
                     public void onSuccess() {

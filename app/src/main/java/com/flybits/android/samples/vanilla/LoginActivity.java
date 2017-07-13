@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
 
     private ProgressDialog progressDialog;
     private RelativeLayout layoutSplash;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +35,9 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
 
         FlybitsManager.setDebug();
 
+        handler         = new Handler();
         layoutSplash    = (RelativeLayout) findViewById(R.id.layoutSplash);
-        progressDialog = new ProgressDialog(this);
+        progressDialog  = new ProgressDialog(this);
 
         if (findViewById(R.id.fragment_container) != null) {
 
@@ -45,6 +48,8 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
             setProgressBar(getString(R.string.loadingIsConnected), true);
             FlybitsManager.isConnected(LoginActivity.this, true, connectionCallback);
         }
+
+        handler.postDelayed(runnable, 2000);
     }
 
     @Override
@@ -90,9 +95,11 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
     ConnectionResultCallback connectionCallback = new ConnectionResultCallback() {
         @Override
         public void onConnected() {
+            handler.removeCallbacks(runnable);
             Intent intent   = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             stopProgressBar();
+
             LoginActivity.this.finish();
         }
 
@@ -100,12 +107,10 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
         public void notConnected() {
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, LoginFragment.newInstance()).commit();
             stopProgressBar();
-            layoutSplash.setVisibility(View.GONE);
         }
 
         @Override
         public void onException(FlybitsException exception) {
-            layoutSplash.setVisibility(View.GONE);
             stopProgressBar();
             Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
         }
@@ -120,5 +125,18 @@ public class LoginActivity extends AppCompatActivity implements LoginFragment.IL
                 .setDebug()
                 .build();
         manager.connect(connectionCallback);
+    }
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            layoutSplash.setVisibility(View.GONE);
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(runnable);
     }
 }
