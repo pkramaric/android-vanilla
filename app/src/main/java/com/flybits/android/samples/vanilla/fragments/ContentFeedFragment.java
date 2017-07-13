@@ -2,6 +2,7 @@ package com.flybits.android.samples.vanilla.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,11 +24,14 @@ import java.util.ArrayList;
 
 public class ContentFeedFragment extends Fragment {
 
+    private final int TIME_TO_REFRESH   = 7000;
+
     private ArrayList<Content> listOfContent;
     private ContentFeedAdapter adapter;
     private ContentResult result;
     private IProgressDialog callbackProgress;
     private SwipeRefreshLayout swipeContainer;
+    private Handler handler;
 
     public static ContentFeedFragment newInstance(){
 
@@ -43,19 +47,20 @@ public class ContentFeedFragment extends Fragment {
         View view   = inflater.inflate(R.layout.fragment_feed, container, false);
 
         RecyclerView  rcView    = (RecyclerView) view.findViewById(R.id.list_feed);
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        swipeContainer          = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        handler                 = new Handler();
 
         // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         rcView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        listOfContent = new ArrayList<>();
-        adapter = new ContentFeedAdapter(getContext(), listOfContent);
+        listOfContent           = new ArrayList<>();
+        adapter                 = new ContentFeedAdapter(getContext(), listOfContent);
         rcView.setAdapter(adapter);
 
         callbackProgress.onStartProgress(getString(R.string.loadingContent), true);
-        displayContent();
+        handler.post(getContent);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -110,6 +115,14 @@ public class ContentFeedFragment extends Fragment {
         });
     }
 
+    private Runnable getContent = new Runnable() {
+        @Override
+        public void run() {
+            displayContent();
+            handler.postDelayed(this, TIME_TO_REFRESH);
+        }
+    };
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -121,5 +134,6 @@ public class ContentFeedFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         callbackProgress.onStopProgress();
+        handler.removeCallbacks(getContent);
     }
 }
