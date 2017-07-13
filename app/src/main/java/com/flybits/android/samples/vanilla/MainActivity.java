@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View header = navigationView.getHeaderView(0);
+        final View header = navigationView.getHeaderView(0);
         headerName = (TextView) header.findViewById(R.id.txtName);
         headerEmail = (TextView) header.findViewById(R.id.txtEmail);
 
@@ -57,8 +57,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FlybitsUserObserver.observe(MainActivity.this).add(new FlybitsUIObjectObserver.DataChanged<User>() {
             @Override
             public void onUpdate(User data) {
-                headerName.setText(data.getFirstName() + " " + data.getLastName());
-                headerEmail.setText(data.getEmail());
+                if (data != null) {
+                    headerName.setText(data.getFirstName() + " " + data.getLastName());
+                    headerEmail.setText(data.getEmail());
+                }else{
+                    headerName.setText("");
+                    headerEmail.setText("");
+                }
             }
         });
 
