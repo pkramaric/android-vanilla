@@ -14,10 +14,10 @@ Once you have set up your Flybits Project ID, you should be ready to start codin
 
 Before you have your fully Flybits-enabled application you need to register your Firebase project's Cloud Messaging server token with the Flybits Developer Portal. You can retrieve your' Firebase project's Cloud Messaging key from the [Firebase Console](https://console.firebase.google.com/) as seen in the screenshot below under `YOUR_SERVER_KEY`.
 
-![firebase1](https://github.com/flybits/vanilla-android/screenshots/firebase1.png)
+![firebase1](https://github.com/flybits/android-vanilla/blob/master/screenshots/firebase1.png)
 
 Finally, you can paste `YOUR_SERVER_KEY` within the Flybits Push Setting console as seen in the screenshot below.
 
-![firebase1](https://github.com/flybits/vanilla-android/screenshots/flybits1.png)
+![firebase1](https://github.com/flybits/android-vanilla/blob/master/screenshots/flybits1.png)
 
-Now your set!
+Now your all set!
