@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addScope(new PushScope(MainActivity.this))
                 .setDebug()
                 .build();
+
         manager.disconnect(new BasicResultCallback() {
             @Override
             public void onSuccess() {
