@@ -98,37 +98,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_send_context_highnet:
                 BankingData data    = new BankingData();
                 data.segmentation   = "highnet";
-                ContextManager.updateContextNow(MainActivity.this, data, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
+                data.updateNow(MainActivity.this, null);
                 break;
             case R.id.nav_send_context_pensioner:
                 BankingData data2    = new BankingData();
                 data2.segmentation   = "pensioner";
-                ContextManager.updateContextNow(MainActivity.this, data2, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
+                data2.updateNow(MainActivity.this, null);
                 break;
             case R.id.nav_send_context_student:
                 BankingData data3    = new BankingData();
                 data3.segmentation   = "student";
-                ContextManager.updateContextNow(MainActivity.this, data3, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
+                data3.updateNow(MainActivity.this, null);
                 break;
             case R.id.nav_send_context_balance1:
                 BankingData data4    = new BankingData();
                 data4.accountBalance = 1000;
-                ContextManager.updateContextNow(MainActivity.this, data4, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
+                data4.updateNow(MainActivity.this, null);
                 break;
             case R.id.nav_send_context_balance2:
                 BankingData data5    = new BankingData();
                 data5.accountBalance   = 10000;
-                ContextManager.updateContextNow(MainActivity.this, data5, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
+                data5.updateNow(MainActivity.this, null);
                 break;
             case R.id.nav_send_context_credit1:
                 BankingData data6   = new BankingData();
                 data6.creditCard    = "visa";
-                ContextManager.updateContextNow(MainActivity.this, data6, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
+                data6.updateNow(MainActivity.this, null);
                 break;
             case R.id.nav_send_context_credit2:
                 BankingData data7   = new BankingData();
                 data7.creditCard    = "mastercard";
-                ContextManager.updateContextNow(MainActivity.this, data7, "ctx.rgabanking.banking", System.currentTimeMillis() / 1000, null);
+                data7.updateNow(MainActivity.this, null);
                 break;
             case R.id.nav_custom_context:
                 FragmentManager fm = getSupportFragmentManager();

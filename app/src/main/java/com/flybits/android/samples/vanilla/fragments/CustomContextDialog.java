@@ -54,7 +54,7 @@ public class CustomContextDialog extends DialogFragment{
                             break;
                     }
 
-                    sendContextData(data, "ctx.rgabanking.banking");
+                    sendContextData(data);
                 }else {
                     Toast.makeText(getContext(), R.string.errorMissingFields, Toast.LENGTH_SHORT).show();
                 }
@@ -71,8 +71,8 @@ public class CustomContextDialog extends DialogFragment{
         return rootView;
     }
 
-    private void sendContextData(ContextData data, String pluginID) {
-        ContextManager.updateContextNow(getContext(), data, pluginID, System.currentTimeMillis() / 1000, new BasicResultCallback() {
+    private void sendContextData(ContextData data) {
+        data.updateNow(getContext(), new BasicResultCallback() {
             @Override
             public void onSuccess() {
                 Toast.makeText(getContext(), R.string.successSent, Toast.LENGTH_SHORT).show();

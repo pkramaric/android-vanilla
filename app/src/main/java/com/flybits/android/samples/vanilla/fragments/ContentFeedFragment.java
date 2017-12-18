@@ -83,7 +83,7 @@ public class ContentFeedFragment extends Fragment {
     public void displayContent() {
 
         ContentParameters params = new ContentParameters.Builder()
-                .addPaging(999, 0)
+                .setPaging(999, 0)
                 .build();
 
         result = Content.get(getContext(), params, new PagedResultCallback<Content>() {

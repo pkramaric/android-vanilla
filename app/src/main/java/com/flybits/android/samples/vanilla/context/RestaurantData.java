@@ -48,6 +48,11 @@ public class RestaurantData extends ContextData implements Parcelable {
     }
 
     @Override
+    public String getPluginID() {
+        return "ctx.project.restaurant";
+    }
+
+    @Override
     public String toJson() {
         JSONObject object=new JSONObject();
         try {
